@@ -14,9 +14,10 @@ async def startLoop(db):
     Initializes all drivers in a list,
     Starts gathering from Driver.run() on loop
     """
-    context = {"MissionMode": MissionMode.PRE_TX}
+    context = {"MissionMode": MissionMode.MODE_0, "rtc": UTCTime()}
+    sleep(.01)
     lock = asyncio.Lock()
-    drivers = [ContextPrinter(), RTC(), db]
+    drivers = [ContextPrinter(), db, RTC(), Drvr_00()]
     await asyncio.gather(*[d.run(context, lock) for d in drivers], runLogic(drivers, context, lock))
 
 
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     5. Begins the main asyncio loop
     """
     # Time in miliseconds to sleep before initializing drivers
-    SLEEP_DURATION = 10 * 1000#30 * 60
+    SLEEP_DURATION = 5 * 1000 # 5 seconds
 
     # Initialilze database
     db = Database()
@@ -54,7 +55,7 @@ if __name__ == '__main__':
 
     delta = UTCTime() - initial_time
     if delta < SLEEP_DURATION:
-        print(f'wait time not elapsed.  waiting {delta}')
+        print(f'wait time not elapsed.  waiting...')
         sleep((SLEEP_DURATION - delta) / 1000)
 
     try:
