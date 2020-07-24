@@ -76,8 +76,8 @@ class Database(Component):
         drvr_18 = 0
         drvr_19 = 0
 
-        if ('rtc' in context):
-            time = context['rtc']
+        if ('clock' in context):
+            time = context['clock']
         self.connection.execute("INSERT INTO data (time, drvr_00, drvr_01, drvr_02, drvr_03, drvr_04, drvr_05, drvr_06, drvr_07, drvr_08, drvr_09, drvr_10, drvr_11, drvr_12, drvr_13, drvr_14, drvr_15, drvr_16, drvr_17, drvr_18, drvr_19) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
         time,
         drvr_00,

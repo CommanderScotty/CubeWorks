@@ -14,10 +14,10 @@ async def startLoop(db):
     Initializes all drivers in a list,
     Starts gathering from Driver.run() on loop
     """
-    context = {"MissionMode": MissionMode.MODE_0, "rtc": UTCTime()}
+    context = {"MissionMode": MissionMode.MODE_0, "clock": UTCTime()}
     sleep(.01)
     lock = asyncio.Lock()
-    drivers = [ContextPrinter(), db, RTC(), Drvr_00(), Drvr_01(), Drvr_02(), Drvr_03(), Drvr_04(), Drvr_05(), Drvr_06(), Drvr_07(), Drvr_08(), Drvr_09()]
+    drivers = [ContextPrinter(), db, Clock(), Drvr_00(), Drvr_01(), Drvr_02(), Drvr_03(), Drvr_04(), Drvr_05(), Drvr_06(), Drvr_07(), Drvr_08(), Drvr_09()]
     await asyncio.gather(*[d.run(context, lock) for d in drivers], runLogic(drivers, context, lock))
 
 
