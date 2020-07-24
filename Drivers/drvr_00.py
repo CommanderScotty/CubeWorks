@@ -1,18 +1,19 @@
 from Drivers.Driver import Driver
-from .simComp_02 import getNextValue
+from .sim.simComp_0 import SimComp_0
 
-class Drvr_02(Driver):
+class Drvr_00(Driver):
     def __init__(self):
         """
         Initializes a dummy driver that is used to test the framework.
         """
-        super().__init__('drvr_02')
+        super().__init__('drvr_00')
+        self.comp = SimComp_0()
 
 
     def read(self):
         """
         A dummy driver component that "reads data" from a simulated hardward component.
         """
-        return getNextValue()
+        return self.comp.getNextValue()
 
 
